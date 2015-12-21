@@ -33,11 +33,6 @@
     return  [self sendToChannel:nil withSuccess:nil withFail:nil];
 }
 
--(NSInteger)resend{
-    
-     return  [self sendToChannel:self.channel withSuccess:self.sentBlock withFail:self.sendFailBlock];
-    
-}
 
 -(NSInteger)sendWithSuccess:(nullable void (^)(SCMessage* message,id response))success withFail:(nullable void (^)(SCMessage* message,id response))fail{
   

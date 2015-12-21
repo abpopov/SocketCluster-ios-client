@@ -36,7 +36,7 @@
 }
 
 
--(void)subscribeWithSuccess:(nullable void (^)(id responce))success withFail:(nullable void (^)(NSError* error,id responce))fail{
+-(void)subscribeWithSuccess:(nullable void (^)(id response))success withFail:(nullable void (^)(NSError* error,id response))fail{
     
 
     self.SubscribeFailBlock=fail;

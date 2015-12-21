@@ -78,7 +78,7 @@
     
 }
 
--(void)initWithHost:(NSString *)host onPort:(NSInteger)port securly:(BOOL)isSecureConnection{
+-(void)initWithHost:(NSString *)host onPort:(NSInteger)port securely:(BOOL)isSecureConnection{
     
      
         SCHost = host;
@@ -334,9 +334,9 @@
                     
                     else{
                         if(channel.SubsscribeSuccessBlock){
-                            id responceData =[dictionary objectForKey:@"data"] ;
+                            id responseData =[dictionary objectForKey:@"data"] ;
                             channel.state=CHANNEL_STATE_SUBSCRIBED;
-                            channel.SubsscribeSuccessBlock(responceData);
+                            channel.SubsscribeSuccessBlock(responseData);
                         }
                     }
                     
@@ -362,9 +362,9 @@
                     
                     else{
                         if(messageObj.sentBlock){
-                            id responceData =[dictionary objectForKey:@"data"] ;
+                            id responseData =[dictionary objectForKey:@"data"] ;
                             
-                            messageObj.sentBlock(message,responceData);
+                            messageObj.sentBlock(message,responseData);
                         }
                         
                          [messagesArray removeObject:messageObj];
@@ -508,8 +508,8 @@
             
             
             if (channel.delegate) {
-                if ([channel.delegate respondsToSelector:@selector(SCChannel:recieveData:)]){
-                    [channel.delegate SCChannel:channel recieveData:channelData];
+                if ([channel.delegate respondsToSelector:@selector(SCChannel:receiveData:)]){
+                    [channel.delegate SCChannel:channel receiveData:channelData];
                 }
 
             }

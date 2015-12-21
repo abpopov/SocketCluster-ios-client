@@ -30,7 +30,6 @@ typedef void(^SCMessageSendFailHandler)(id/*<SCMessage>*/ message, id response);
 
 
 -(NSInteger)send;
--(NSInteger)resend;
 
 -(NSInteger)sendWithSuccess:(nullable void (^)(SCMessage* message,id response))success withFail:(nullable void (^)(SCMessage* message,id response))fail;
 

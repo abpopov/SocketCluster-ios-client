@@ -25,8 +25,6 @@ typedef enum _SOCKET_STATE {
 
 -(void)socketClusterAuthenticateEvent:(NSString*)token;
 -(void)socketClusterConnectEvent;
--(void)socketClusterErrorEvent:(id)data;
-
 -(void)socketClusterReceivedEvent:(NSString *)eventName WithData:(NSDictionary *)data isStandartEvent:(BOOL)isStandartEvent;
 
 
@@ -42,7 +40,7 @@ typedef enum _SOCKET_STATE {
 
 +(instancetype)client;
 
-- (void)initWithHost:(NSString *)host onPort:(NSInteger)port securly:(BOOL)isSecureConnection;
+- (void)initWithHost:(NSString *)host onPort:(NSInteger)port securely:(BOOL)isSecureConnection;
 
 - (SOCKET_STATE)getState;
 - (void)connect;
@@ -56,5 +54,7 @@ typedef enum _SOCKET_STATE {
 -(NSInteger)sendMessage:(SCMessage*)message toChannel:(nullable SCChannel*)channel;
 
 -(void)setRestoreChannels:(BOOL)restore;
+
+-(NSInteger) emitEvent:(NSString*)event withData:(id)data;
 
 @end

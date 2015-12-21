@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^SCChannelSubscribeHandler)(id responce);
+typedef void(^SCChannelSubscribeHandler)(id response);
 
-typedef void(^SCChannelSubscribeFailHandler)(NSError* error,id responce);
+typedef void(^SCChannelSubscribeFailHandler)(NSError* error,id response); 
 
 
 typedef enum _CHANNEL_STATE {
@@ -22,7 +22,7 @@ typedef enum _CHANNEL_STATE {
 } CHANNEL_STATE;
 @protocol SCChannelDelegate<NSObject>
 
--(void)SCChannel:(nonnull id/*<SCChannel>*/) channel recieveData:(nullable id)data;
+-(void)SCChannel:(nonnull id/*<SCChannel>*/) channel receiveData:(nullable id)data;
 -(void)SCChannel:(nonnull id/*<SCChannel>*/) channel kickOutWithMessage:(nullable id)message;
 
 @end
@@ -43,7 +43,7 @@ typedef enum _CHANNEL_STATE {
 
 
 
--(void)subscribeWithSuccess:(nullable void (^)(id responce))success withFail:(nullable void (^)(NSError* error,id responce))fail;
+-(void)subscribeWithSuccess:(nullable void (^)(id response))success withFail:(nullable void (^)(NSError* error,id response))fail;
 
 
 -(BOOL) isEqual:(nonnull SCChannel*)object;
