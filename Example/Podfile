@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'SocketCluster-ios-client_Example', :exclusive => true do
+  pod "SocketCluster-ios-client", :path => "../"
+end
+
+target 'SocketCluster-ios-client_Tests', :exclusive => true do
+  pod "SocketCluster-ios-client", :path => "../"
+
+  
+end

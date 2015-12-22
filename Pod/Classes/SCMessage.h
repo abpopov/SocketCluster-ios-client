@@ -17,7 +17,7 @@ typedef void(^SCMessageSendFailHandler)(id/*<SCMessage>*/ message, id response);
 
 @interface SCMessage : NSObject
 
--(nonnull instancetype) initWithEventName:(nonnull NSString*)eventName andData:(nullable id)data;
+-(nonnull instancetype) initWithEventName:(nullable NSString*)eventName andData:(nullable id)data;
 
 @property NSInteger cid;
 

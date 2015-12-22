@@ -1,0 +1,17 @@
+PODS:
+  - SocketCluster-ios-client (0.1):
+    - SocketRocket
+  - SocketRocket (0.4.2)
+
+DEPENDENCIES:
+  - SocketCluster-ios-client (from `../`)
+
+EXTERNAL SOURCES:
+  SocketCluster-ios-client:
+    :path: ../
+
+SPEC CHECKSUMS:
+  SocketCluster-ios-client: a06fa84965d194ccca30f276069402f877f399c5
+  SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
+
+COCOAPODS: 0.39.0

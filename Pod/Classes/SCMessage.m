@@ -11,7 +11,7 @@
 #import "SCSocket.h"
 @implementation SCMessage
 
--(nonnull instancetype) initWithEventName:(nonnull NSString*)eventName andData:(nullable id)data{
+-(nonnull instancetype) initWithEventName:(nullable NSString*)eventName andData:(nullable id)data{
   
     self = [super init];
     if (self) {
