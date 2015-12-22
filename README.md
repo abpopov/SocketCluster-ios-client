@@ -5,10 +5,10 @@ Native iOS client for SocketCluster http://socketcluster.io/
 Notice: Client support SocketCluster v.3.
 
 ### Setup 
-Notice: client required installed SocketRocket https://github.com/square/SocketRocket
 
-1. Drag this files into your project
-2. Import the header files ``#import "SCSocket.h"``
+Use CocoaPods
+
+pod "SocketCluster-ios-client";
 
 ### Usage
  
