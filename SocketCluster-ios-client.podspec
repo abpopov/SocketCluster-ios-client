@@ -9,10 +9,9 @@
 Pod::Spec.new do |s|
   s.name             = "SocketCluster-ios-client"
   s.version          = "0.1"
-  s.summary          = "A short description of SocketCluster-ios-client."
+  s.summary          = "Native iOS client for SocketCluster http://socketcluster.io/"
 
-  s.description      = <<-DESC
-                       DESC
+  s.description      = "Native iOS client for SocketCluster http://socketcluster.io/."
 
   s.homepage         = "https://github.com/abpopov/SocketCluster-ios-client"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
