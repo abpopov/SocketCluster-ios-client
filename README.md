@@ -55,6 +55,11 @@ SCChannel* channel = [[SCChannel alloc] initWithChannelName:@"test" andDelegate:
 -(void)subscribeWithSuccess:(nullable void (^)(id response))success withFail:(nullable void (^)(NSError* error,id response))fail;
 ```
 
+```objective-c
+// unsubscribe from channel with success block
+-(void)unsubscribeWithSuccess:(nullable void (^)(void))success;
+```
+
 ``SCChannelDelegate`` methods
 
 ```objective-c
