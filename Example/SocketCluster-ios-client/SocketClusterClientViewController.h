@@ -10,5 +10,11 @@
 
 
 @interface SocketClusterClientViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *randMessageLbl;
 
+@property (weak, nonatomic) IBOutlet UITextField *ChannelTittle;
+@property (weak, nonatomic) IBOutlet UITextField *testMessageText;
+
+@property (weak, nonatomic) IBOutlet UILabel *customChannelMessageLbl;
+@property (weak, nonatomic) IBOutlet UILabel *customChannelLbl;
 @end

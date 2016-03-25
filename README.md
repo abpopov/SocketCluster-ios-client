@@ -2,7 +2,7 @@
 
 Native iOS client for SocketCluster http://socketcluster.io/
 
-Notice: Client support SocketCluster v.3.
+Notice: Client support SocketCluster v.3. Also tested on SocketCluster v.4
 
 ### Setup 
 

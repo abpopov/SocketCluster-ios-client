@@ -23,6 +23,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		6F17243F58E73F510CEDCC07 /* Pods_SocketCluster_ios_client_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA138375A2B48D9D5459520 /* Pods_SocketCluster_ios_client_Tests.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		B8C38D051CA604C40001B75D /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = B8C38D041CA604C40001B75D /* CHANGELOG.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		823A7CC445703B8DC9437BBB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8A05905CA0D2908A738FB416 /* Pods-SocketCluster-ios-client_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketCluster-ios-client_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocketCluster-ios-client_Example/Pods-SocketCluster-ios-client_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B8C38D041CA604C40001B75D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		DFAB4B8E8772DC3BCDC19899 /* SocketCluster-ios-client.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "SocketCluster-ios-client.podspec"; path = "../SocketCluster-ios-client.podspec"; sourceTree = "<group>"; };
 		F1577043D95E3701EA955D6B /* Pods-SocketCluster-ios-client_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketCluster-ios-client_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocketCluster-ios-client_Tests/Pods-SocketCluster-ios-client_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F85B2E45F34C2DA10D2DB1C7 /* Pods-SocketCluster-ios-client_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketCluster-ios-client_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocketCluster-ios-client_Tests/Pods-SocketCluster-ios-client_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				B8C38D041CA604C40001B75D /* CHANGELOG.md */,
 				DFAB4B8E8772DC3BCDC19899 /* SocketCluster-ios-client.podspec */,
 				823A7CC445703B8DC9437BBB /* README.md */,
 				2F6536D4A03C40771409BAB7 /* LICENSE */,
@@ -393,6 +396,7 @@
 				6003F59E195388D20070C39A /* SocketClusterClientAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SocketClusterClientViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				B8C38D051CA604C40001B75D /* CHANGELOG.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

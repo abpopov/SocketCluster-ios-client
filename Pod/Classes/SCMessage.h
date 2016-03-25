@@ -10,9 +10,9 @@
 
 @class SCChannel;
 
-typedef void(^SCMessageSentHandler)(id/*<SCMessage>*/ message, id response);
+typedef void(^SCMessageSentHandler)(_Nonnull id/*<SCMessage>*/ message,_Nullable id response);
 
-typedef void(^SCMessageSendFailHandler)(id/*<SCMessage>*/ message, id response);
+typedef void(^SCMessageSendFailHandler)(_Nonnull id/*<SCMessage>*/ message, _Nullable id response);
 
 
 @interface SCMessage : NSObject
@@ -21,21 +21,21 @@ typedef void(^SCMessageSendFailHandler)(id/*<SCMessage>*/ message, id response);
 
 @property NSInteger cid;
 
-@property (nonatomic, strong) SCChannel* channel;
-@property (nonatomic, strong) NSString* event;
-@property (nonatomic, strong) id data;
+@property (nonatomic, strong)  SCChannel* _Nullable channel;
+@property (nonatomic, strong) NSString* _Nullable event;
+@property (nonatomic, strong) _Nullable id data;
 
-@property (nonatomic, copy) SCMessageSentHandler sentBlock;
-@property (nonatomic, copy) SCMessageSendFailHandler sendFailBlock;
+@property (nonatomic, copy) _Nullable SCMessageSentHandler sentBlock;
+@property (nonatomic, copy) _Nullable SCMessageSendFailHandler sendFailBlock;
 
 
 -(NSInteger)send;
 
--(NSInteger)sendWithSuccess:(nullable void (^)(SCMessage* message,id response))success withFail:(nullable void (^)(SCMessage* message,id response))fail;
+-(NSInteger)sendWithSuccess:(nullable void (^)(SCMessage* _Nonnull message,_Nullable id response))success withFail:(nullable void (^)( SCMessage* _Nonnull message,_Nullable id response))fail;
 
 
--(NSInteger)sendToChannel:(SCChannel*)channel;
--(NSInteger)sendToChannel:(SCChannel*)channel withSuccess:(nullable void (^)(SCMessage* message,id response))success withFail:(nullable void (^)(SCMessage* message,id response))fail;
+-(NSInteger)sendToChannel:( SCChannel* _Nonnull)channel;
+-(NSInteger)sendToChannel:(SCChannel* _Nullable)channel withSuccess:(nullable void (^)(SCMessage* _Nonnull message,_Nullable id response))success withFail:(nullable void (^)(SCMessage* _Nonnull message,_Nullable id response))fail;
 
 
 

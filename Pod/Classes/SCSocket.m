@@ -18,6 +18,7 @@
     NSInteger SCPort;
 
     NSInteger SCReconnectTime;
+    NSInteger MaxSCReconnectTime;
     
     NSString*JWTToken;
     NSInteger cid;
@@ -84,6 +85,8 @@
         SCHost = host;
         SCPort = port;
         SCReconnectTime=5;
+        MaxSCReconnectTime=10;
+    
         secure = isSecureConnection;
         channelsArray=[[NSMutableArray alloc]init];
         messagesArray=[[NSMutableArray alloc]init];
@@ -113,8 +116,12 @@
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
     
     if (SCReconnectTime>0) {
+       
+        NSInteger randReconnectTime = arc4random() % (MaxSCReconnectTime - SCReconnectTime) + SCReconnectTime;
+
         
-        [self performSelector:@selector(connect) withObject:nil afterDelay:SCReconnectTime];
+        
+        [self performSelector:@selector(connect) withObject:nil afterDelay:randReconnectTime];
     }
     
 }
@@ -123,7 +130,9 @@
    
     if (SCReconnectTime>0) {
         
-        [self performSelector:@selector(connect) withObject:nil afterDelay:SCReconnectTime];
+        NSInteger randReconnectTime = arc4random() % (MaxSCReconnectTime - SCReconnectTime) + SCReconnectTime;
+        
+        [self performSelector:@selector(connect) withObject:nil afterDelay:randReconnectTime];
     }
     
     
@@ -584,6 +593,29 @@
     
 }
 
+-(void)unSubscribeFromChannel:(SCChannel* _Nonnull)channel{
+    
+    
+    if ([channelsArray containsObject:channel]) {
+       
+        [[[SCMessage alloc] initWithEventName:@"#unsubscribe" andData:[channel getName]] sendWithSuccess:^(SCMessage * _Nonnull message, id  _Nullable response) {
+            
+            [channelsArray removeObject:channel];
+             channel.UnsubsscribeSuccessBlock();
+            
+        } withFail:^(SCMessage * _Nonnull message, id  _Nullable response) {
+            
+        }];
+        
+        channel.state=CHANNEL_STATE_PENDING;
+        
+    }
+
+    
+    
+    
+}
+
 -(SCChannel*)findChanneByRid:(NSInteger)rid{
     
     for (SCChannel *channel in channelsArray) {
@@ -676,6 +708,20 @@
         }
     }
     
+}
+
+
+-(void)setMinSCReconnectTime:(NSInteger)reconnectTime{
+    SCReconnectTime=reconnectTime;
+}
+
+-(void)setMaxSCReconnectTime:(NSInteger)reconnectTime{
+    MaxSCReconnectTime=reconnectTime;
+}
+
+-(NSArray*)getSubscribedChannels{
+    
+    return channelsArray;
 }
 
 @end

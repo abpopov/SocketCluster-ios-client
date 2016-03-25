@@ -35,6 +35,11 @@
     return channelName;
 }
 
+-(void)unsubscribeWithSuccess:(nullable void (^)(void))success{
+    self.UnsubsscribeSuccessBlock=success;
+     [[SCSocket client] unSubscribeFromChannel:self];
+    
+}
 
 -(void)subscribeWithSuccess:(nullable void (^)(id response))success withFail:(nullable void (^)(NSError* error,id response))fail{
     
