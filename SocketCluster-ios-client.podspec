@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SocketCluster-ios-client"
-  s.version          = "1.0.1"
+  s.version          = "1.0.2"
   s.summary          = "Native iOS client for SocketCluster http://socketcluster.io/"
 
   s.description      = "Native iOS client for SocketCluster http://socketcluster.io/."
