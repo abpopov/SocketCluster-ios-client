@@ -273,12 +273,12 @@
         if (![response isKindOfClass:[NSNull class]]) {
             
             id isAuthenticatedObj = [response objectForKey:@"isAuthenticated"];
-            id idx =[response objectForKey:@"id"] ;
-            if (idx && ![idx isKindOfClass:[NSNull class]]&& ![isAuthenticatedObj isKindOfClass:[NSNull class]] ) {
+            NSString* idx =[response objectForKey:@"id"] ;
+            if (idx && isAuthenticatedObj && ![idx isKindOfClass:[NSNull class]]&& ![isAuthenticatedObj isKindOfClass:[NSNull class]] ) {
                 
                 
                 _socketId =idx;
-                isAuthenticated = [[NSNumber numberWithBool:idx] boolValue];
+                isAuthenticated = [isAuthenticatedObj boolValue];
                 
                 [self restoreChannels];
                 [self resendStoredMessages];
