@@ -1,3 +1,9 @@
+## 2.0.0 (2016-04-25)
+
+* SC v4 ready
+* This version NOT working with SC v3
+
+
 ## 1.0.2 (2016-03-26)
 
 * bug fix :)

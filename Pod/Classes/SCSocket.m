@@ -207,7 +207,7 @@
     
     
     if (secure) {
-        [self initWebSocketWithUrl:[NSString stringWithFormat:@"%@:%d",SCHost,(int)SCPort]];
+        [self initWebSocketWithSecureUrl:[NSString stringWithFormat:@"%@:%d",SCHost,(int)SCPort]];
         
     }else{
         [self initWebSocketWithUrl:[NSString stringWithFormat:@"%@:%d",SCHost,(int)SCPort]];
@@ -222,6 +222,9 @@
     
     [channelsArray removeAllObjects];
     [messagesArray removeAllObjects];
+    
+    JWTToken=nil;
+    isAuthenticated=NO;
     
     SCReconnectTime=-1;
     [wS close];
@@ -257,7 +260,7 @@
 -(void)WSConnectedHandler{
     SCMessage* handShakeMessage;
     
-    if (JWTToken && [JWTToken isKindOfClass:[NSNull class]]) {
+    if (JWTToken && ![JWTToken isKindOfClass:[NSNull class]]) {
         
         
      handShakeMessage =[[SCMessage alloc] initWithEventName:@"#handshake" andData:@{@"authToken":JWTToken}] ;
@@ -280,6 +283,12 @@
                 _socketId =idx;
                 isAuthenticated = [isAuthenticatedObj boolValue];
                 
+                
+                if(!isAuthenticated){
+                    
+                    JWTToken= nil;
+                }
+                    
                 [self restoreChannels];
                 [self resendStoredMessages];
                 
@@ -316,6 +325,7 @@
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:objectData options:kNilOptions error:&error];
     
         
+        NSLog(@"%@",message);
         if (dictionary) {
             
             
@@ -583,7 +593,7 @@
        
         [channelsArray addObject:channel];
         
-        channel.cid = [[[SCMessage alloc] initWithEventName:@"#subscribe" andData:[channel getName]] send];
+        channel.cid = [[[SCMessage alloc] initWithEventName:@"#subscribe" andData:@{@"channel":[channel getName]}] send];
     
         channel.state=CHANNEL_STATE_PENDING;
         
@@ -722,6 +732,11 @@
 -(NSArray*)getSubscribedChannels{
     
     return channelsArray;
+}
+- (BOOL) isAuthenticated{
+    
+    return isAuthenticated;
+    
 }
 
 @end

@@ -43,6 +43,8 @@ typedef enum _SOCKET_STATE {
 - (void)initWithHost:(NSString *_Nonnull)host onPort:(NSInteger)port securely:(BOOL)isSecureConnection;
 
 - (SOCKET_STATE)getState;
+- (BOOL) isAuthenticated;
+
 - (void)connect;
 - (void)disconnect;
 
