@@ -584,7 +584,7 @@
 
 -(void)subscribeToChannel:(SCChannel*)channel{
     
-    if ([channelsArray containsObject:channelsArray]) {
+    if ([channelsArray containsObject:channel]) {
        
         NSError*error= [[NSError alloc] initWithDomain:@"SCChannel" code:10001 userInfo:@{@"msg":@"Already subscribed to this channel"}];
         channel.SubscribeFailBlock(error,nil);
@@ -656,7 +656,7 @@
             
             if (channel.state == CHANNEL_STATE_SUBSCRIBED) {
                         
-                        [self emitEvent:@"#subscribe" withData:[channel getName]];
+                        [self emitEvent:@"#subscribe" withData:@{@"channel":[channel getName]}];
             }
             
         }
