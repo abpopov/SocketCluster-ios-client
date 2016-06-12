@@ -29,7 +29,11 @@
     BOOL isAuthenticated;
     BOOL secure;
     
+    BOOL waitResendUntilAuth;
     BOOL restoreChannels;
+    
+    BOOL reconnecting;
+    
     
     SRWebSocket *wS;
 }
@@ -119,7 +123,7 @@
        
         NSInteger randReconnectTime = arc4random() % (MaxSCReconnectTime - SCReconnectTime) + SCReconnectTime;
 
-        
+        reconnecting =YES;
         
         [self performSelector:@selector(connect) withObject:nil afterDelay:randReconnectTime];
     }
@@ -129,6 +133,8 @@
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
    
     if (SCReconnectTime>0) {
+        
+        reconnecting =YES;
         
         NSInteger randReconnectTime = arc4random() % (MaxSCReconnectTime - SCReconnectTime) + SCReconnectTime;
         
@@ -188,7 +194,7 @@
     
     NSString *jsonString=@"";
     
-    if (! jsonData) {
+    if (!jsonData) {
         NSLog(@"Got an error: %@", error);
     } else {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -231,6 +237,11 @@
     
     
 
+}
+
+-(void)setRestoreWaitForAuth:(BOOL)wait{
+    
+    waitResendUntilAuth = wait;
 }
 
 -(void)setRestoreChannels:(BOOL)restore{
@@ -288,12 +299,27 @@
                     
                     JWTToken= nil;
                 }
+                BOOL reconnect= reconnecting;
+                if (reconnecting) {
                     
-                [self restoreChannels];
-                [self resendStoredMessages];
+               
+                if (!waitResendUntilAuth) {
+                    
+                    reconnecting = NO;
+                    [self restoreChannels];
+                    [self resendStoredMessages];
+                }else if(isAuthenticated){
+                     reconnecting = NO;
+                    [self restoreChannels];
+                    [self resendStoredMessages];
                 
-                if ([self.delegate respondsToSelector:@selector(socketClusterConnectEvent)]){
-                    [self.delegate socketClusterConnectEvent];
+                }
+            
+                }
+             
+                
+                if ([self.delegate respondsToSelector:@selector(socketClusterConnectEvent:)]){
+                    [self.delegate socketClusterConnectEvent:reconnect];
                 }
                 
             }
@@ -352,9 +378,12 @@
                     }
                     
                     else{
+                        
+                        channel.state=CHANNEL_STATE_SUBSCRIBED;
+                        
                         if(channel.SubsscribeSuccessBlock){
                             id responseData =[dictionary objectForKey:@"data"] ;
-                            channel.state=CHANNEL_STATE_SUBSCRIBED;
+     
                             channel.SubsscribeSuccessBlock(responseData);
                         }
                     }
@@ -526,11 +555,13 @@
             id channelData =  [data objectForKey:@"data"];
             
             
-            if (channel.delegate) {
+            if (![channel.delegate isKindOfClass:[NSNull class]]&& channel.delegate) {
                 if ([channel.delegate respondsToSelector:@selector(SCChannel:receiveData:)]){
                     [channel.delegate SCChannel:channel receiveData:channelData];
                 }
 
+            }else{
+                [channelsArray removeObject:channel];
             }
             
         }
@@ -547,6 +578,8 @@
     [[[SCMessage alloc] initWithEventName:@"login" andData:data] sendWithSuccess:^(SCMessage *message, id response) {
         
        
+        
+        
         success(response);
      
         
@@ -569,6 +602,15 @@
             
             JWTToken = token;
         
+            
+            if (waitResendUntilAuth && restoreChannels &&  reconnecting) {
+                
+                [self restoreChannels];
+                [self resendStoredMessages];
+            }
+                 reconnecting = NO;
+            
+            
             if ([self.delegate respondsToSelector:@selector(socketClusterAuthenticateEvent:)]){
                 [self.delegate socketClusterAuthenticateEvent:token];
             }
@@ -586,10 +628,11 @@
     
     if ([channelsArray containsObject:channel]) {
        
-        NSError*error= [[NSError alloc] initWithDomain:@"SCChannel" code:10001 userInfo:@{@"msg":@"Already subscribed to this channel"}];
-        channel.SubscribeFailBlock(error,nil);
-    }else
-    {
+    
+        [channelsArray removeObject:channel];
+    
+    
+    }
        
         [channelsArray addObject:channel];
         
@@ -597,7 +640,7 @@
     
         channel.state=CHANNEL_STATE_PENDING;
         
-    }
+    
     
     
     
@@ -611,7 +654,11 @@
         [[[SCMessage alloc] initWithEventName:@"#unsubscribe" andData:[channel getName]] sendWithSuccess:^(SCMessage * _Nonnull message, id  _Nullable response) {
             
             [channelsArray removeObject:channel];
-             channel.UnsubsscribeSuccessBlock();
+            
+            if (channel.UnsubsscribeSuccessBlock) {
+                    channel.UnsubsscribeSuccessBlock();
+            }
+         
             
         } withFail:^(SCMessage * _Nonnull message, id  _Nullable response) {
             

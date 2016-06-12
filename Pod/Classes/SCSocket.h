@@ -24,7 +24,7 @@ typedef enum _SOCKET_STATE {
 @optional
 
 -(void)socketClusterAuthenticateEvent:( NSString* _Nonnull)token;
--(void)socketClusterConnectEvent;
+-(void)socketClusterConnectEvent:(BOOL)reconnecting;
 -(void)socketClusterReceivedEvent:(NSString * _Nonnull)eventName WithData:( NSDictionary *_Nullable)data isStandartEvent:(BOOL)isStandartEvent;
 
 
@@ -40,29 +40,37 @@ typedef enum _SOCKET_STATE {
 
 +(instancetype _Nullable)client;
 
+//init
 - (void)initWithHost:(NSString *_Nonnull)host onPort:(NSInteger)port securely:(BOOL)isSecureConnection;
 
+//getting info
 - (SOCKET_STATE)getState;
 - (BOOL) isAuthenticated;
+-(NSArray* _Nonnull)getSubscribedChannels;
 
+//connection methods
 - (void)connect;
 - (void)disconnect;
 
-
--(void)loginWithData:(nullable NSDictionary*)data withSuccess:(nullable void (^)(_Nullable id response))success withFail:(nullable void (^)(_Nullable id response))fail;
-
--(void)subscribeToChannel:(SCChannel* _Nonnull)channel;
--(void)unSubscribeFromChannel:(SCChannel* _Nonnull)channel;
-
--(NSInteger)sendMessage:(SCMessage* _Nonnull)message toChannel:( SCChannel* _Nullable)channel;
-
+// settings
+-(void)setRestoreWaitForAuth:(BOOL)wait;
 -(void)setRestoreChannels:(BOOL)restore;
-
--(NSInteger) emitEvent:(NSString* _Nonnull)event withData:(_Nullable id)data;
-
 -(void)setMinSCReconnectTime:(NSInteger)minReconnectTime;
 -(void)setMaxSCReconnectTime:(NSInteger)maxReconnectTime;
 
--(NSArray* _Nonnull)getSubscribedChannels;
+
+//service methods
+-(void)loginWithData:(nullable NSDictionary*)data withSuccess:(nullable void (^)(_Nullable id response))success withFail:(nullable void (^)(_Nullable id response))fail;
+-(void)subscribeToChannel:(SCChannel* _Nonnull)channel;
+-(void)unSubscribeFromChannel:(SCChannel* _Nonnull)channel;
+
+
+
+//sending messages
+-(NSInteger)sendMessage:(SCMessage* _Nonnull)message toChannel:( SCChannel* _Nullable)channel;
+-(NSInteger) emitEvent:(NSString* _Nonnull)event withData:(_Nullable id)data;
+
+
+
 
 @end

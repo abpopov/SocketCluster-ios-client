@@ -31,7 +31,7 @@ typedef enum _CHANNEL_STATE {
 
 @interface SCChannel : NSObject
 
-@property (assign, nonatomic) _Nullable id <SCChannelDelegate>delegate;
+@property (weak, nonatomic) _Nullable id <SCChannelDelegate>delegate;
 
 @property (nonatomic, copy) _Nullable SCChannelUnsubscribeHandler UnsubsscribeSuccessBlock;
 @property (nonatomic, copy) _Nullable SCChannelSubscribeHandler SubsscribeSuccessBlock;

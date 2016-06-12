@@ -1,3 +1,10 @@
+## 2.1.0 (2016-04-25)
+
+* Code cleanup
+* Bug fix
+* Added SCSocket -(void)setRestoreWaitForAuth:(BOOL)wait  - to set wait or not auth before restore channels and resend messages
+* Changed -(void)socketClusterConnectEvent SocketClusterDelegate method to -(void)socketClusterConnectEvent:(BOOL)reconnecting; To check is it new connection or reconnection;
+
 ## 2.0.0 (2016-04-25)
 
 * SC v4 ready
