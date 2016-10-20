@@ -33,7 +33,7 @@
     BOOL restoreChannels;
     
     BOOL reconnecting;
-    
+    BOOL isPaused;
     
     SRWebSocket *wS;
 }
@@ -132,7 +132,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
    
-    if (SCReconnectTime>0) {
+    if (SCReconnectTime>0 && !isPaused) {
         
         reconnecting =YES;
         
@@ -209,8 +209,11 @@
     
 }
 
+#pragma mark - connection methods
+    
 - (void)connect{
     
+    isPaused=NO;
     
     if (secure) {
         [self initWebSocketWithSecureUrl:[NSString stringWithFormat:@"%@:%d",SCHost,(int)SCPort]];
@@ -223,6 +226,12 @@
     
 }
 
+    
+- (void)pause{
+    reconnecting =YES;
+    isPaused =YES;
+    [wS close];
+}
 
 - (void)disconnect{
     

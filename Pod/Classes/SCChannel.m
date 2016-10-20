@@ -12,7 +12,7 @@
 @implementation SCChannel{
     
     NSString* channelName;
-    CHANNEL_STATE channelState;
+   
     
     
 }
@@ -24,7 +24,7 @@
         
         channelName=chName;
         self.delegate=chDelegate;
-        channelState=CHANNEL_STATE_UNSUBSRIBED;
+       
     }
     return self;
 }

@@ -50,6 +50,7 @@ typedef enum _SOCKET_STATE {
 
 //connection methods
 - (void)connect;
+- (void)pause;
 - (void)disconnect;
 
 // settings
